@@ -1,8 +1,15 @@
 // model/User.java
 package com.loan.loanapproval.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
@@ -19,6 +26,7 @@ public class User {
   private String username;
 
   private String password;
+  private String role;
 
     /**
      * @return Long return the id
@@ -60,6 +68,21 @@ public class User {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    /**
+     * @return String return the role
+     */
+    public String getRole() {
+        return role;
+    }
+
+    /**
+     * @param role the role to set
+     */
+    public void setRole(String role) {
+        this.role = role;
     }
 
 }
