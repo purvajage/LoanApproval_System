@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: pg_loan
+    restart: always
+    environment:
+      POSTGRES_DB: loan_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  ai-model:
+    build:
+      context: ./ai-model
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend-springboot
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - ai-model
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://pg_loan:5432/loan_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - AI_API_URL=http://ai-model:5000/predict
+
+volumes:
+  pgdata:

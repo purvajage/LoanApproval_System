@@ -20,7 +20,6 @@ public class LoanApprovalService {
     private final String AI_API_URL = "http://localhost:5000/predict";
 
     public LoanApplication applyLoan(LoanApplication application) {
-        // Prepare input for AI API
         Map<String, Object> request = new HashMap<>();
         request.put("Gender", application.getGender());
         request.put("Married", application.getMarried());
@@ -34,12 +33,17 @@ public class LoanApprovalService {
         request.put("Credit_History", application.getCreditHistory());
         request.put("Property_Area", application.getPropertyArea());
 
-        // Call AI prediction API
+        // Call AI Model API using RestTemplate
         RestTemplate restTemplate = new RestTemplate();
-        Map<String, Boolean> response = restTemplate.postForObject(AI_API_URL, request, Map.class);
-        Boolean approved = response.get("loan_approved");
+        try {
+            Map<?, ?> response = restTemplate.postForObject(AI_API_URL, request, Map.class);
+            Boolean approved = (Boolean) response.get("loan_approved");
+            application.setLoanApproved(approved);
+        } catch (Exception e) {
+            e.printStackTrace();
+            application.setLoanApproved(null); // or false as fallback
+        }
 
-        application.setLoanApproved(approved);
         return repository.save(application);
     }
 }
