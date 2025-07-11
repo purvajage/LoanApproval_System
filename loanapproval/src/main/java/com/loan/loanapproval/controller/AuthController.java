@@ -1,4 +1,4 @@
-
+//auth controller
 package com.loan.loanapproval.controller;
 
 import com.loan.loanapproval.model.User;
