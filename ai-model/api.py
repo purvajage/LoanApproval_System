@@ -5,6 +5,7 @@ import numpy as np
 app = Flask(__name__)
 model = joblib.load("model.pkl")
 
+# route for predict
 @app.route("/predict", methods=["POST"])
 def predict():
     data = request.get_json()

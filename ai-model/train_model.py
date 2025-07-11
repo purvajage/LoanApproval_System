@@ -8,7 +8,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 import joblib
 
-# Load data
+
+#load dataset
 df = pd.read_csv("train.csv")
 
 # Drop rows with missing target
