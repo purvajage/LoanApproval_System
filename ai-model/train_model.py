@@ -23,7 +23,7 @@ y = df["Loan_Status"].map({"Y": 1, "N": 0})  # Convert Y/N to 1/0
 categorical_features = [
     "Gender", "Married", "Dependents",
     "Education", "Self_Employed", "Property_Area"
-]
+]#define numerical feature
 numerical_features = [
     "ApplicantIncome", "CoapplicantIncome",
     "LoanAmount", "Loan_Amount_Term", "Credit_History"
@@ -62,5 +62,5 @@ model.fit(X_train, y_train)
 preds = model.predict(X_test)
 print("Accuracy:", accuracy_score(y_test, preds))
 
-# Save model
+# Saving model
 joblib.dump(model, "model.pkl")
