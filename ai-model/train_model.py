@@ -46,7 +46,7 @@ preprocessor = ColumnTransformer([
     ("cat", categorical_pipeline, categorical_features)
 ])
 
-# Final model pipeline
+
 model = Pipeline([
     ("preprocess", preprocessor),
     ("classifier", LogisticRegression(max_iter=300))
